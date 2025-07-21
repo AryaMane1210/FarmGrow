@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from "../src/components/Navabr.jsx";
-
+import Footer from "../src/components/Footer.jsx";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
@@ -19,6 +19,7 @@ function App() {
           </div>
     )}
     </main>
+    <Footer/>
     </div>
   );
 }
