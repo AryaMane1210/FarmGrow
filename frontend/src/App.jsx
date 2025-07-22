@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from "../src/components/Navabr.jsx";
 import Footer from "../src/components/Footer.jsx";
+import Block from "../src/components/Block.jsx";  
+import LeafyImage from "../src/images/leafy.jpg";
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
@@ -19,6 +22,13 @@ function App() {
           </div>
     )}
     </main>
+        <div className="flex gap-6 p-6">
+          <Block imageSrc={LeafyImage} />
+          <Block imageSrc={LeafyImage} />
+          <Block imageSrc={LeafyImage} />
+          <Block imageSrc={LeafyImage} />
+          <Block imageSrc={LeafyImage} />
+        </div>
     <Footer/>
     </div>
   );
