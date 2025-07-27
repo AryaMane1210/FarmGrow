@@ -1,28 +1,24 @@
-// import React from "react";
+import FarmerSidebar, {SidebarItem} from "./FarmerSidebar";
+import { LayoutDashboard, Wheat, Gavel, ReceiptText } from "lucide-react";
+// import crop from "../assets/crop.png";
 
-// function FarmerPage() {
-//   return (
-//     <div>
-//       <h2>Welcome, Farmer!</h2>
-//       {/* Add more content or features for farmers here */}
-//     </div>
-//   );
-// }
-
-// export default FarmerPage;
-
-
-import React from "react";
-import FarmerNavbar from "./FarmerNavbar";
-import FarmerDashboard from "./FarmerDashboard";
-
-function FarmerPage() {
+export default function FarmerPage() {
   return (
-    <div>
-      <FarmerNavbar />
-      <FarmerDashboard />
+    <div className="flex">
+      <FarmerSidebar>
+        <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" active alert/>
+        <SidebarItem icon={<Wheat size={20} />} text="Produce"/>
+        <SidebarItem
+          icon={<Gavel size={20} />}
+          text="Bid" alert
+        />
+        <SidebarItem
+          icon={<ReceiptText size={20} />}
+          text="Transaction"
+        />
+      </FarmerSidebar>
     </div>
   );
 }
 
-export default FarmerPage;
+
