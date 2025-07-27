@@ -1,105 +1,87 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Bell, Search, User, Settings, LogOut } from "lucide-react";
 
-function FarmerNavbar() {
+export default function FarmerNavbar() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const profileRef = useRef();
+
+  // Close dropdown if clicking outside
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    if (dropdownOpen) {
+      window.addEventListener("mousedown", handleClick);
+    }
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, [dropdownOpen]);
+
   return (
-    <nav className="bg-white py-4 px-[10px] w-full">
-      <div className="grid grid-cols-8 gap-[20px] items-center">
-        {/* Logo - 2 columns */}
-        <div className="col-span-2 flex items-center gap-2">
-          {/* Logo Icon */}
-          <svg
-            width="32"
-            height="32"
-            className="text-green-600"
-            fill="none"
-            viewBox="0 0 32 32"
-          >
-            <circle cx="16" cy="16" r="16" fill="#22c55e" />
-            <path d="M12 18c2-6 8-7 8-7s-1 6-8 7z" fill="#FFF" />
-          </svg>
-          <span className="font-bold text-xl text-green-700">
-            Farm<span className="text-black">Vista</span>
-          </span>
-        </div>
-
-        {/* Search - next 2 columns */}
-        <div className="col-span-2">
+    <nav className="bg-white h-16 flex items-center px-8 justify-between shadow">
+      {/* Searchbar - leftmost */}
+      <div className="flex-1 flex items-center">
+        <div className="relative max-w-xs w-full">
           <input
-            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-green-500 placeholder-gray-400 bg-gray-100"
-            placeholder="Search something here....."
             type="text"
+            className="bg-[#F7FFF9] text-[#0FA344] placeholder-[#A0BCA7] rounded-md pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0FA344] w-72 shadow-sm"
+            placeholder="Search…"
           />
-        </div>
-
-        {/* Spacer - 1 column */}
-        <div className="col-span-1" />
-
-        {/* Notification Bell - right edge of 6th column */}
-        <div className="col-span-1 flex justify-end">
-          <div className="relative flex justify-end">
-            {/* Bell Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-gray-800"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405
-                C18.37 15.21 18 14.11 18 13V9a6 6 0 10-12 0v4c0 1.11-.37 2.21-1.595 2.595L3 17h5m7 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-            {/* Green notification dot */}
-            <span className="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-green-500"></span>
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-[#0FA344]" />
           </div>
         </div>
-
-        {/* Profile - last 2 columns, content right-aligned and center-justified */}
-        <div className="col-span-2 h-full flex items-center">
-          <div
-            className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer transition hover:bg-gray-100"
-            style={{ width: "100%" }}
+      </div>
+      {/* Notification Bell & Profile */}
+      <div className="flex items-center space-x-8">
+        <button
+          type="button"
+          className="relative flex items-center justify-center rounded-full p-2 text-[#0FA344] hover:bg-[#BBFFD0] transition"
+        >
+          <span className="sr-only">View notifications</span>
+          <Bell className="h-6 w-6" />
+        </button>
+        {/* Profile Dropdown */}
+        <div className="relative" ref={profileRef}>
+          <button
+            type="button"
+            className="flex items-center rounded-full bg-[#F4FFF2] border border-[#BBFFD0] p-1 focus:outline-none focus:ring-2 focus:ring-[#0FA344]"
+            onClick={() => setDropdownOpen((open) => !open)}
           >
-            {/* Profile image */}
             <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="profile"
-              className="w-8 h-8 rounded-full object-cover"
+              className="h-9 w-9 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&q=80"
+              alt="User"
             />
-            {/* Info - left aligned */}
-            <div className="flex flex-col justify-center">
-              <p className="font-semibold text-gray-700 text-sm leading-tight text-left">
-                Albert Flores
-              </p>
-              <p className="text-xs text-gray-400 leading-tight text-left">
-                albert45@gmail.com
-              </p>
+          </button>
+          {dropdownOpen && (
+            <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#BBFFD0]">
+              <a
+                href="#"
+                className="flex items-center px-4 py-2 text-sm text-[#0FA344] hover:bg-[#BBFFD0]"
+              >
+                <User className="mr-2 h-4 w-4" />
+                Account
+              </a>
+              <a
+                href="#"
+                className="flex items-center px-4 py-2 text-sm text-[#0FA344] hover:bg-[#BBFFD0]"
+              >
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </a>
+              <a
+                href="#"
+                className="flex items-center px-4 py-2 text-sm text-[#0FA344] hover:bg-[#BBFFD0]"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </a>
             </div>
-            {/* Dropdown Arrow */}
-            <svg
-              width="20"
-              height="20"
-              fill="none"
-              className="text-gray-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M7 8l3 3 3-3"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+          )}
         </div>
       </div>
     </nav>
   );
 }
-
-export default FarmerNavbar;
