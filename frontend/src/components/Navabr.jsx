@@ -10,6 +10,7 @@ const Navbar =({ isLoggedIn }) =>{
 
       {isLoggedIn && (
         <div className="space-x-4">
+            <button className="hover:underline"> Home</button>
             <button className="hover:underline"> Trendy Recipes</button>
             <button className="hover:underline"> Profile </button>
         </div>

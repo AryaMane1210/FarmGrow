@@ -5,7 +5,7 @@ const ProductDetails = () => {
   const { veggieId } = useParams();
   const product = productData[veggieId];
 
-  if (!product) return <p>Product not found</p>;
+  if (!product) return null;
 
   return (
     <div className="flex gap-8 p-8">

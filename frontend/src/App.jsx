@@ -109,10 +109,11 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from "./components/Navabr.jsx";
 import Footer from "./components/Footer.jsx";
-import Block from "./components/Block.jsx";
+// import Block from "./components/Block.jsx";
 import ProductDetails from "./components/ProductDetails.jsx";
-import productData from "./data/Product.jsx";
+// import productData from "./data/Product.jsx";
 import FarmerPage from "./components/FarmerPage.jsx";
+import Home from "./pages/Home.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -163,15 +164,19 @@ function App() {
               <Route
                 path="/"
                 element={
+                  <div className= "p-6"> 
+                  {/* <Buyer_Filter /> */}
                   <div className="flex flex-wrap gap-6 p-6">
-                    {Object.entries(productData).map(([veggieId, product]) => (
+                    {/* {Object.entries(productData).map(([veggieId, product]) => (
                       <Block
                         key={veggieId}
                         imageSrc={product.image}
                         veggieId={veggieId}
                         title={product.name}
                       />
-                    ))}
+                    ))} */}
+                    <Home />
+                    </div>
                   </div>
                 }
               />
